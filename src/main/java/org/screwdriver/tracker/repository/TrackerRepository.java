@@ -4,4 +4,7 @@ import org.screwdriver.tracker.entity.Tracker;
 import org.springframework.data.repository.CrudRepository;
 
 public interface TrackerRepository extends CrudRepository<Tracker, Long> {
+
+    public Tracker findByTrackerCode(String trackerCode);
+
 }

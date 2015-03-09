@@ -11,7 +11,7 @@ public class Tracker extends AbstractPersistable<Long> {
     @Column(unique = true)
     private String trackerCode;
 
-    @OneToMany
+    @OneToMany(mappedBy = "tracker")
     private List<Event> events;
 
     private Tracker(Builder builder) {
@@ -20,6 +20,22 @@ public class Tracker extends AbstractPersistable<Long> {
     }
 
     public Tracker() {
+    }
+
+    public String getTrackerCode() {
+        return trackerCode;
+    }
+
+    public void setTrackerCode(String trackerCode) {
+        this.trackerCode = trackerCode;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 
     public static class Builder {

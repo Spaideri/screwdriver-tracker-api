@@ -9,11 +9,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = "org.screwdriver.tracker")
+@ComponentScan(basePackages = {"org.screwdriver.tracker.service", "org.screwdriver.tracker.controller"})
 public class ApplicationConfig {
 
-    @Value("${token.secret}")
-    private String tokenSecret;
+    @Value("${tracker.macSecret}")
+    private String macSecret;
 
     @Bean
     public DozerBeanMapper dozerBeanMapper() {
@@ -25,6 +25,4 @@ public class ApplicationConfig {
 
     @Bean
     public TimeService timeService() { return new TimeService(); }
-
-
 }

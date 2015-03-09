@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { DataSourceConfig.class })
 public class EventRepositoryTest {
-    
+
     private static final int NUMBER_OF_EVENTS = 3;
 
     @Autowired

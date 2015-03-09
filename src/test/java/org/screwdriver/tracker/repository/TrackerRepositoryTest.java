@@ -35,23 +35,11 @@ public class TrackerRepositoryTest {
 		flyway.migrate();
 	}
 
-    /*
 	@Test
-	public void shouldFindAccountByUserName() {
-        Account account = trackerRepository.findByUsername(USER_NAME);
-		assertEquals(PASSWORD, account.getPassword());
+	public void shouldFindTrackerByTrackerCode() {
+        Tracker tracker = trackerRepository.findByTrackerCode(TRACKER_CODE1);
+        assertEquals(TRACKER_CODE1, tracker.getTrackerCode());
 	}
-
-    @Test
-    @Transactional
-    public void accountShouldHaveAccessGroup() {
-        Account account = trackerRepository.findByUsername(USER_NAME);
-        List<AccessGroup> accessGroups = account.getAccessGroups();
-        AccessGroup accessGroup = accessGroups.get(0);
-
-        assertEquals(ACCESS_GROUP_NAME, accessGroup.getName());
-
-    }*/
 
 	@Test
 	public void shouldHaveTwoTrackers() {

@@ -8,4 +8,7 @@ import java.util.List;
 public interface EventRepository extends CrudRepository<Event, Long> {
 
     public List<Event> findByTrackerId(Long trackerId);
+
+    public List<Event> findByTrackerTrackerCode(String trackerCode);
+
 }

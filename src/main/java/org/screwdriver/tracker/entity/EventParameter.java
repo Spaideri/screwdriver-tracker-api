@@ -13,6 +13,12 @@ public class EventParameter extends AbstractPersistable<Long> {
 
     private String value;
 
+    public EventParameter(Event event, String key, String value) {
+        this.event = event;
+        this.key = key;
+        this.value = value;
+    }
+
     private EventParameter(Builder builder) {
         super.setId(builder.id);
         this.event = builder.event;
