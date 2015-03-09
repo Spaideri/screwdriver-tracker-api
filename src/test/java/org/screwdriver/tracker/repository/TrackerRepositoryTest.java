@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 public class TrackerRepositoryTest {
 
 	private static final String TRACKER_CODE1 = "TEST_TRACKER_1";
-	private static final int NUMBER_OF_TRACKERS = 2;
+	private static final int NUMBER_OF_TRACKERS = 3;
 
     @Autowired
 	private TrackerRepository trackerRepository;
