@@ -34,6 +34,8 @@ public class Event extends AbstractPersistable<Long> {
         this.tracker = builder.tracker;
         this.version = builder.version;
         this.eventParameters = builder.eventParameters;
+        this.eventTimestamp = builder.eventTimestamp;
+        this.submitTime = builder.submitTime;
     }
 
     public Tracker getTracker() {
@@ -78,6 +80,7 @@ public class Event extends AbstractPersistable<Long> {
         private String version;
         private List<EventParameter> eventParameters;
         private Date eventTimestamp;
+        private Date submitTime;
 
         public Event build() {
             return new Event(this);
@@ -105,6 +108,11 @@ public class Event extends AbstractPersistable<Long> {
 
         public Builder eventTimestamp(Date eventTimestamp) {
             this.eventTimestamp = eventTimestamp;
+            return this;
+        }
+
+        public Builder submitTime(Date submitTime) {
+            this.submitTime = submitTime;
             return this;
         }
     }

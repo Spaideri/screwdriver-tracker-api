@@ -47,6 +47,8 @@ public class RepositoryEventDataServiceTest {
     @Mock
     private EventParameterRepository eventParameterRepository;
 
+    private MapperService mapperService = new MapperService();
+
     private final static String MAC_SECRET = "MACSECRET123";
 
     private RepositoryEventDataService eventDataService;
@@ -56,7 +58,7 @@ public class RepositoryEventDataServiceTest {
     @Before
     public void setup() {
         initMocks(this);
-        eventDataService = new RepositoryEventDataService(trackerRepository, eventRepository, eventParameterRepository);
+        eventDataService = new RepositoryEventDataService(trackerRepository, eventRepository, eventParameterRepository, mapperService);
         eventDataService.setMacSecret(MAC_SECRET);
         eventData = createEventData();
         when(trackerRepository.findByTrackerCode(VALUE_TRACKER_CODE)).thenReturn(new Tracker());

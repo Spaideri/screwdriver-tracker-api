@@ -1,17 +1,16 @@
 package org.screwdriver.tracker.controller;
 
+import org.screwdriver.tracker.dto.EventDTO;
 import org.screwdriver.tracker.service.IEventDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
-public class TrackerController {
+public class EventsController {
 
     @Autowired
     private IEventDataService eventDataService;
@@ -24,5 +23,13 @@ public class TrackerController {
     public String update(@RequestBody Map<String, String> eventData) {
         eventDataService.saveEvent(eventData);
         return "{\"status\":\"ok\"}";
+    }
+
+    @RequestMapping(
+            value = "/trackers/{trackerId}/events",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<EventDTO> update(@PathVariable("trackerId") Long trackerId) {
+        return eventDataService.findEventsByTrackerId(trackerId);
     }
 }

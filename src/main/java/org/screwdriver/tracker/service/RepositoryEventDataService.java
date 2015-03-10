@@ -2,6 +2,7 @@ package org.screwdriver.tracker.service;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.joda.time.DateTime;
+import org.screwdriver.tracker.dto.EventDTO;
 import org.screwdriver.tracker.entity.Event;
 import org.screwdriver.tracker.entity.EventParameter;
 import org.screwdriver.tracker.entity.Tracker;
@@ -27,7 +28,6 @@ public class RepositoryEventDataService implements IEventDataService {
     private static final String VERSION_KEY = "version";
     private static final String EVENT_TIMESTAMP_KEY = "time";
 
-
     private String macSecret;
 
     private TrackerRepository trackerRepository;
@@ -36,11 +36,18 @@ public class RepositoryEventDataService implements IEventDataService {
 
     private EventParameterRepository eventParameterRepository;
 
+    private MapperService mapperService;
+
     @Autowired
-    public RepositoryEventDataService(TrackerRepository trackerRepository, EventRepository eventRepository, EventParameterRepository eventParameterRepository) {
+    public RepositoryEventDataService(
+            TrackerRepository trackerRepository,
+            EventRepository eventRepository,
+            EventParameterRepository eventParameterRepository,
+            MapperService mapperService) {
         this.trackerRepository = trackerRepository;
         this.eventRepository = eventRepository;
         this.eventParameterRepository = eventParameterRepository;
+        this.mapperService = mapperService;
     }
 
     @Value("${tracker.macSecret}")
@@ -61,8 +68,14 @@ public class RepositoryEventDataService implements IEventDataService {
         saveEventParameters(savedEvent, eventData);
     }
 
+    @Override
+    @Transactional
+    public List<EventDTO> findEventsByTrackerId(Long trackerId) {
+        return mapperService.mapEventsToEventDTOs(eventRepository.findByTrackerId(trackerId));
+    }
+
     private void saveEventParameters(Event event, Map<String, String> eventData) {
-        List<EventParameter> eventParameters = new ArrayList<EventParameter>();
+        List<EventParameter> eventParameters = new ArrayList<>();
         for(Map.Entry<String, String> entry : eventData.entrySet()) {
             EventParameter eventParameter = new EventParameter(event, entry.getKey(), entry.getValue());
             eventParameters.add(eventParameterRepository.save(eventParameter));
