@@ -12,7 +12,7 @@ public class Event extends AbstractPersistable<Long> {
 
     private String version;
 
-    @OneToMany
+    @OneToMany(mappedBy = "event")
     private List<EventParameter> eventParameters;
 
     @Temporal(TemporalType.TIMESTAMP)

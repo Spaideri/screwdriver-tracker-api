@@ -8,8 +8,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.screwdriver.tracker.config.ApplicationConfig;
 import org.screwdriver.tracker.config.DataSourceConfig;
+import org.screwdriver.tracker.dto.EventDTO;
 import org.screwdriver.tracker.entity.Event;
 import org.screwdriver.tracker.entity.EventParameter;
+import org.screwdriver.tracker.entity.Tracker;
 import org.screwdriver.tracker.repository.EventRepository;
 import org.screwdriver.tracker.repository.TrackerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +56,11 @@ public class RepositoryEventDataServiceIntegrationTest {
         eventDataService.saveEvent(eventData);
     }
 
+    @After
+    public void teardown() {
+        em.clear();
+    }
+
     @Test
     @Transactional
     public void shouldSaveTrackerEvent() {
@@ -63,6 +70,16 @@ public class RepositoryEventDataServiceIntegrationTest {
         assertEquals(RepositoryEventDataServiceTest.VALUE_VERSION, event.getVersion());
         assertEquals(new DateTime(RepositoryEventDataServiceTest.VALUE_TIME), new DateTime(event.getEventTimestamp()));
         assertEventParameters(event.getEventParameters());
+    }
+
+    @Test
+    public void shouldReturnEventsByTrackerId() {
+        Tracker tracker = trackerRepository.findByTrackerCode(RepositoryEventDataServiceTest.VALUE_TRACKER_CODE);
+        List<EventDTO> events = eventDataService.findEventsByTrackerId(tracker.getId());
+
+        assertEquals(1, events.size());
+        assertEquals(RepositoryEventDataServiceTest.VALUE_NONCE, events.get(0).getEventParameters().get(RepositoryEventDataServiceTest.KEY_NONCE));
+        assertEquals(RepositoryEventDataServiceTest.VALUE_X_VARIABLE, events.get(0).getEventParameters().get(RepositoryEventDataServiceTest.KEY_X_VARIABLE));
     }
 
     private void assertEventParameters(List<EventParameter> eventParameters) {
@@ -75,8 +92,4 @@ public class RepositoryEventDataServiceIntegrationTest {
         assertEquals(RepositoryEventDataServiceTest.VALUE_NONCE, entries.get(RepositoryEventDataServiceTest.KEY_NONCE));
     }
 
-    @After
-    public void teardown() {
-        em.clear();
-    }
 }
