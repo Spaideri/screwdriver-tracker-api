@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ITrackerDataService {
 
-    List<TrackerDTO> findAll();
+    List<TrackerDTO> getAll();
+
+    TrackerDTO getTracker(Long trackerId);
 
 }

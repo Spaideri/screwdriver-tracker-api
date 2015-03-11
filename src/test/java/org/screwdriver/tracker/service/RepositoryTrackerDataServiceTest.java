@@ -49,7 +49,7 @@ public class RepositoryTrackerDataServiceTest {
 
     @Test
     public void shouldGetTrackersAndLatestEventAndMapThem() {
-        List<TrackerDTO> dtos = dataService.findAll();
+        List<TrackerDTO> dtos = dataService.getAll();
 
         verify(trackerRepository).findAll();
         verify(eventRepository).findTop1ByTrackerIdOrderByEventTimestampDesc(TRACKER_ID);
@@ -57,9 +57,20 @@ public class RepositoryTrackerDataServiceTest {
         assertEquals(trackerDTO, dtos.get(0));
     }
 
+    @Test
+    public void shouldGetTrackerAndLatestEventAndMap() {
+        TrackerDTO dto = dataService.getTracker(TRACKER_ID);
+
+        verify(trackerRepository).findOne(TRACKER_ID);
+        verify(eventRepository).findTop1ByTrackerIdOrderByEventTimestampDesc(TRACKER_ID);
+        verify(mapperService).mapTrackerToTrackerDTO(tracker, latestEvent);
+        assertEquals(trackerDTO, dto);
+    }
+
 
     private void recordMockLogic() {
         when(trackerRepository.findAll()).thenReturn(Arrays.asList(tracker));
+        when(trackerRepository.findOne(TRACKER_ID)).thenReturn(tracker);
         when(tracker.getId()).thenReturn(TRACKER_ID);
         when(eventRepository.findTop1ByTrackerIdOrderByEventTimestampDesc(TRACKER_ID)).thenReturn(latestEvent);
         when(mapperService.mapTrackerToTrackerDTO(tracker, latestEvent)).thenReturn(trackerDTO);

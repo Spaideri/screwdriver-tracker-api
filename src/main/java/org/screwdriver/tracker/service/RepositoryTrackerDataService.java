@@ -30,7 +30,7 @@ public class RepositoryTrackerDataService implements ITrackerDataService {
 
     @Override
     @Transactional( readOnly = true )
-    public List<TrackerDTO> findAll() {
+    public List<TrackerDTO> getAll() {
         List<TrackerDTO> dtos = new ArrayList<>();
         Iterable<Tracker> trackers = trackerRepository.findAll();
         for(Tracker tracker : trackers) {
@@ -38,6 +38,13 @@ public class RepositoryTrackerDataService implements ITrackerDataService {
             dtos.add(mapperService.mapTrackerToTrackerDTO(tracker, latestEvent));
         }
         return dtos;
+    }
+
+    @Override
+    public TrackerDTO getTracker(Long trackerId) {
+        return mapperService.mapTrackerToTrackerDTO(
+                trackerRepository.findOne(trackerId),
+                eventRepository.findTop1ByTrackerIdOrderByEventTimestampDesc(trackerId));
     }
 
 }
