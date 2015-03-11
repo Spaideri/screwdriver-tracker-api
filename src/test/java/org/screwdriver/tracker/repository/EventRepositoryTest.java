@@ -1,6 +1,8 @@
 package org.screwdriver.tracker.repository;
 
 import com.googlecode.flyway.core.Flyway;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -21,6 +21,7 @@ import static org.junit.Assert.*;
 public class EventRepositoryTest {
 
     private static final int NUMBER_OF_EVENTS = 3;
+    private static final String LATEST_TIMESTAMP = "2015-03-02T12:01:00.000+0200";
 
     @Autowired
     private EventRepository eventRepository;
@@ -30,6 +31,7 @@ public class EventRepositoryTest {
 
     @Before
     public void setup() {
+        DateTimeZone.setDefault(DateTimeZone.UTC);
         flyway.clean();
         flyway.migrate();
     }
@@ -37,18 +39,12 @@ public class EventRepositoryTest {
     @Test
     public void shouldFindEventsByTrackerId() {
         List<Event> trackerEvents = eventRepository.findByTrackerId(1L);
-        assertEquals(2, trackerEvents.size());
+        assertEquals(NUMBER_OF_EVENTS, trackerEvents.size());
     }
 
     @Test
-    public void shouldHaveTwoEvents() {
-        List<Event> events = new ArrayList<Event>();
-        Iterable<Event> all = eventRepository.findAll();
-        Iterator<Event> iterator = all.iterator();
-        while (iterator.hasNext()) {
-            Event event = iterator.next();
-            events.add(event);
-        }
-        assertEquals(NUMBER_OF_EVENTS, events.size());
+    public void shouldFindLatestEventByTrackerId() {
+        Event event = eventRepository.findTop1ByTrackerIdOrderByEventTimestampDesc(1L);
+        assertEquals(new DateTime(LATEST_TIMESTAMP), new DateTime(event.getEventTimestamp()));
     }
 }

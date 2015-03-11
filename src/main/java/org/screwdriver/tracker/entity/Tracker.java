@@ -18,6 +18,7 @@ public class Tracker extends AbstractPersistable<Long> {
     private Tracker(Builder builder) {
         super.setId(builder.id);
         this.trackerCode = builder.trackerCode;
+        this.events = builder.events;
     }
 
     public Tracker() {
@@ -42,6 +43,7 @@ public class Tracker extends AbstractPersistable<Long> {
     public static class Builder {
         private Long id;
         private String trackerCode;
+        private List<Event> events;
 
         public Tracker build() {
             return new Tracker(this);
@@ -54,6 +56,11 @@ public class Tracker extends AbstractPersistable<Long> {
 
         public Builder trackerCode(String trackerCode) {
             this.trackerCode = trackerCode;
+            return this;
+        }
+
+        public Builder events(List<Event> events) {
+            this.events = events;
             return this;
         }
     }
