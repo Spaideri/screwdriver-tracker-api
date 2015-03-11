@@ -19,7 +19,6 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 @Configuration
@@ -73,11 +72,6 @@ public class DataSourceConfig {
 	}
 
 	@Bean
-	public EntityManager entityManger() {
-		return entityManagerFactory().getObject().createEntityManager();
-	}
-
-	@Bean
 	public HibernateExceptionTranslator hibernateExceptionTranslator() {
 		return new HibernateExceptionTranslator();
 	}
@@ -98,9 +92,9 @@ public class DataSourceConfig {
 		return entityManagerFactory;
 	}
 
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 
 }

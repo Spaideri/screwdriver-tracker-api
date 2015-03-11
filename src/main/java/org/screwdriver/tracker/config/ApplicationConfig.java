@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
 @ComponentScan(basePackages = {"org.screwdriver.tracker.service", "org.screwdriver.tracker.controller"})
+@PropertySource("classpath:screwdriver.properties")
 public class ApplicationConfig {
 
     @Value("${tracker.macSecret}")
@@ -25,5 +28,11 @@ public class ApplicationConfig {
 
     @Bean
     public TimeService timeService() { return new TimeService(); }
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
 
 }
