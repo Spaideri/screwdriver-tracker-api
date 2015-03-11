@@ -1,6 +1,5 @@
 package org.screwdriver.tracker.dto;
 
-import java.util.Date;
 import java.util.Map;
 
 public class EventDTO {
@@ -9,13 +8,13 @@ public class EventDTO {
 
     private String version;
 
-    private Date submitTime;
+    private String submitTime;
 
-    private Date eventTimestamp;
+    private String eventTimestamp;
 
     private Map<String, String> eventParameters;
 
-    public EventDTO(Long id, String version, Date submitTime, Date eventTimestamp, Map<String, String> eventParameters) {
+    public EventDTO(Long id, String version, String submitTime, String eventTimestamp, Map<String, String> eventParameters) {
         this.id = id;
         this.version = version;
         this.submitTime = submitTime;
@@ -42,19 +41,19 @@ public class EventDTO {
         this.version = version;
     }
 
-    public Date getSubmitTime() {
+    public String getSubmitTime() {
         return submitTime;
     }
 
-    public void setSubmitTime(Date submitTime) {
+    public void setSubmitTime(String submitTime) {
         this.submitTime = submitTime;
     }
 
-    public Date getEventTimestamp() {
+    public String getEventTimestamp() {
         return eventTimestamp;
     }
 
-    public void setEventTimestamp(Date eventTimestamp) {
+    public void setEventTimestamp(String eventTimestamp) {
         this.eventTimestamp = eventTimestamp;
     }
 

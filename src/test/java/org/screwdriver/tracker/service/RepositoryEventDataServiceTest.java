@@ -32,7 +32,7 @@ public class RepositoryEventDataServiceTest {
     public static final String KEY_X_VARIABLE = "X-foobar";
     public static final String VALUE_X_VARIABLE = "foobarvalue";
     public static final String KEY_MAC = "mac";
-    public static final String VALUE_INVALID_MAC = "xxyyyzz";
+    public static final String VALUE_INVALID_MAC = "xxxyyyzzz";
 
     public static final String VALUE_SEPARATOR = ":";
     public static final String PARAMETER_SEPARATOR = "|";

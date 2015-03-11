@@ -29,7 +29,7 @@ public class EventsController {
             value = "/trackers/{trackerId}/events",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<EventDTO> update(@PathVariable("trackerId") Long trackerId) {
+    public List<EventDTO> findEventsByTrackerId(@PathVariable("trackerId") Long trackerId) {
         return eventDataService.findEventsByTrackerId(trackerId);
     }
 }

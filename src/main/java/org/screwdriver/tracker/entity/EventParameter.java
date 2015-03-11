@@ -6,7 +6,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class EventParameter extends AbstractPersistable<Long> {
 
-    @ManyToOne
+    @ManyToOne( optional = false )
     private Event event;
 
     private String key;

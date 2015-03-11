@@ -13,12 +13,12 @@ import org.screwdriver.tracker.repository.EventRepository;
 import org.screwdriver.tracker.repository.TrackerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-@Service
+@Component
 public class RepositoryEventDataService implements IEventDataService {
 
     private static final String VALUE_SEPARATOR = ":";
@@ -28,6 +28,7 @@ public class RepositoryEventDataService implements IEventDataService {
     private static final String VERSION_KEY = "version";
     private static final String EVENT_TIMESTAMP_KEY = "time";
 
+    @Value("${tracker.macSecret}")
     private String macSecret;
 
     private TrackerRepository trackerRepository;
@@ -50,13 +51,12 @@ public class RepositoryEventDataService implements IEventDataService {
         this.mapperService = mapperService;
     }
 
-    @Value("${tracker.macSecret}")
     public void setMacSecret(String macSecret) {
         this.macSecret = macSecret;
     }
 
     @Override
-    @Transactional
+    @Transactional( rollbackFor = Exception.class )
     public void saveEvent(Map<String, String> eventData) {
         validateMac(eventData);
         Tracker tracker = getTracker(eventData);
@@ -71,7 +71,8 @@ public class RepositoryEventDataService implements IEventDataService {
     @Override
     @Transactional
     public List<EventDTO> findEventsByTrackerId(Long trackerId) {
-        return mapperService.mapEventsToEventDTOs(eventRepository.findByTrackerId(trackerId));
+        List<Event> byTrackerId = eventRepository.findByTrackerId(trackerId);
+        return mapperService.mapEventsToEventDTOs(byTrackerId);
     }
 
     private void saveEventParameters(Event event, Map<String, String> eventData) {

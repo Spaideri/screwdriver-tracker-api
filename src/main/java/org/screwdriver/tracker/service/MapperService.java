@@ -1,5 +1,6 @@
 package org.screwdriver.tracker.service;
 
+import org.joda.time.DateTime;
 import org.screwdriver.tracker.dto.EventDTO;
 import org.screwdriver.tracker.entity.Event;
 import org.screwdriver.tracker.entity.EventParameter;
@@ -25,8 +26,8 @@ public class MapperService {
         return new EventDTO(
                 event.getId(),
                 event.getVersion(),
-                event.getSubmitTime(),
-                event.getEventTimestamp(),
+                new DateTime(event.getSubmitTime()).toDateTimeISO().toString(),
+                new DateTime(event.getEventTimestamp()).toDateTimeISO().toString(),
                 mapEventParameters(event.getEventParameters()));
     }
 

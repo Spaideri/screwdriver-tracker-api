@@ -1,5 +1,6 @@
 package org.screwdriver.tracker.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -11,7 +12,7 @@ public class Tracker extends AbstractPersistable<Long> {
     @Column(unique = true)
     private String trackerCode;
 
-    @OneToMany(mappedBy = "tracker")
+    @OneToMany(mappedBy = "tracker", cascade = CascadeType.ALL)
     private List<Event> events;
 
     private Tracker(Builder builder) {

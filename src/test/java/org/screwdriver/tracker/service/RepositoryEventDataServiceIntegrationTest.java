@@ -2,7 +2,6 @@ package org.screwdriver.tracker.service;
 
 import com.googlecode.flyway.core.Flyway;
 import org.joda.time.DateTime;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +18,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,9 +35,6 @@ public class RepositoryEventDataServiceIntegrationTest {
     Flyway flyway;
 
     @Autowired
-    private EntityManager em;
-
-    @Autowired
     private EventRepository eventRepository;
 
     @Autowired
@@ -54,11 +49,6 @@ public class RepositoryEventDataServiceIntegrationTest {
         eventData = RepositoryEventDataServiceTest.createEventData();
         eventData.put(RepositoryEventDataServiceTest.KEY_MAC, RepositoryEventDataServiceTest.getMacForEventData(eventData));
         eventDataService.saveEvent(eventData);
-    }
-
-    @After
-    public void teardown() {
-        em.clear();
     }
 
     @Test
@@ -91,5 +81,15 @@ public class RepositoryEventDataServiceIntegrationTest {
         assertEquals(RepositoryEventDataServiceTest.VALUE_X_VARIABLE, entries.get(RepositoryEventDataServiceTest.KEY_X_VARIABLE));
         assertEquals(RepositoryEventDataServiceTest.VALUE_NONCE, entries.get(RepositoryEventDataServiceTest.KEY_NONCE));
     }
+
+    /*
+    private void printData(Map<String, String> eventData) {
+        System.out.println("{");
+        for(Map.Entry<String, String> entry : eventData.entrySet()) {
+            System.out.println("\"" + entry.getKey() + "\":" + "\"" + entry.getValue() + "\",");
+        }
+        System.out.println("}");
+    }
+    */
 
 }

@@ -38,8 +38,8 @@ public class MapperServiceTest {
 
         assertEquals(EVENT_ID, dto.getId());
         assertEquals(EVENT_VERSION, dto.getVersion());
-        assertEquals(new DateTime(EVENT_SUBMIT_TIME), new DateTime(dto.getSubmitTime()));
-        assertEquals(new DateTime(EVENT_TIMESTAMP), new DateTime(dto.getEventTimestamp()));
+        assertEquals(new DateTime(EVENT_SUBMIT_TIME).toString(), dto.getSubmitTime());
+        assertEquals(new DateTime(EVENT_TIMESTAMP).toString(), dto.getEventTimestamp());
         assertEquals(PARAM1_VALUE, dto.getEventParameters().get(PARAM1_KEY));
         assertEquals(PARAM2_VALUE, dto.getEventParameters().get(PARAM2_KEY));
     }

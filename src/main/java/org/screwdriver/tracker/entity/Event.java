@@ -7,12 +7,12 @@ import java.util.List;
 @Entity
 public class Event extends AbstractPersistable<Long> {
 
-    @ManyToOne
+    @ManyToOne( optional = false )
     private Tracker tracker;
 
     private String version;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", fetch = FetchType.EAGER)
     private List<EventParameter> eventParameters;
 
     @Temporal(TemporalType.TIMESTAMP)

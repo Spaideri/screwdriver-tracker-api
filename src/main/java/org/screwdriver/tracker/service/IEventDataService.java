@@ -7,8 +7,8 @@ import java.util.Map;
 
 public interface IEventDataService {
 
-    public void saveEvent(Map<String, String> eventData);
+    void saveEvent(Map<String, String> eventData);
 
-    public List<EventDTO> findEventsByTrackerId(Long trackerId);
+    List<EventDTO> findEventsByTrackerId(Long trackerId);
 
 }
