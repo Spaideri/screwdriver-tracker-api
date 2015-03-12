@@ -1,6 +1,6 @@
 CREATE TABLE tracker (
     id SERIAL PRIMARY KEY,
-    trackerCode VARCHAR(200) NOT NULL UNIQUE,
+    trackerCode VARCHAR(200) NOT NULL UNIQUE
 );
 
 CREATE TABLE event (
@@ -19,3 +19,8 @@ CREATE TABLE eventParameter (
     value VARCHAR(256) NOT NULL
 );
 ALTER TABLE eventParameter ADD CONSTRAINT fkEventParameterEvent FOREIGN KEY (event_id) REFERENCES event (id);
+
+CREATE TABLE apiKey (
+    id SERIAL PRIMARY KEY,
+    apiKey VARCHAR(64) NOT NULL UNIQUE
+);

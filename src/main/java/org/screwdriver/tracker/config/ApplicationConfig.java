@@ -11,7 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
-@ComponentScan(basePackages = {"org.screwdriver.tracker.service", "org.screwdriver.tracker.controller"})
+@ComponentScan(basePackages = {"org.screwdriver.tracker.service", "org.screwdriver.tracker.controller", "org.screwdriver.tracker.authorization"})
 @PropertySource("classpath:screwdriver.properties")
 public class ApplicationConfig {
 
