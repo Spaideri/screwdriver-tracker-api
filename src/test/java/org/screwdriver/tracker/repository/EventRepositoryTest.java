@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 public class EventRepositoryTest {
 
     private static final int NUMBER_OF_EVENTS = 3;
-    private static final String LATEST_TIMESTAMP = "2015-03-02T12:01:00.000+0200";
+    private static final String LATEST_TIMESTAMP = "2015-03-02T10:01:00.000+0000";
 
     @Autowired
     private EventRepository eventRepository;
