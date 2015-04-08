@@ -45,6 +45,6 @@ public class EventRepositoryTest {
     @Test
     public void shouldFindLatestEventByTrackerId() {
         Event event = eventRepository.findTop1ByTrackerIdOrderByEventTimestampDesc(1L);
-        assertEquals(new DateTime(LATEST_TIMESTAMP).getMillis(), event.getEventTimestamp().getTime());
+        assertEquals(new DateTime(LATEST_TIMESTAMP).toDate(), event.getEventTimestamp());
     }
 }
