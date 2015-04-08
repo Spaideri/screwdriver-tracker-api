@@ -7,8 +7,8 @@ CREATE TABLE event (
     id SERIAL PRIMARY KEY,
     tracker_id INTEGER NOT NULL,
     version VARCHAR(10) NOT NULL,
-    submitTime TIMESTAMP WITH TIME ZONE NOT NULL,
-    eventTimestamp TIMESTAMP WITH TIME ZONE NULL
+    submitTime TIMESTAMP NOT NULL,
+    eventTimestamp TIMESTAMP NULL
 );
 ALTER TABLE event ADD CONSTRAINT fkEventTracker FOREIGN KEY (tracker_id) REFERENCES tracker (id);
 
